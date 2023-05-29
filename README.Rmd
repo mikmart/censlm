@@ -1,0 +1,53 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# censlm
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of censlm is to simplify fitting censored linear models and using
+them to draw plausible imputed values for censored observations.
+
+## Installation
+
+You can install the development version of censlm like so:
+
+``` r
+remotes::install_github("mikmart/censlm")
+```
+
+## Example
+
+Fit a censored linear model to left-censored data with `clm()`, then draw random
+values for censored observations from the fitted distribution with `imputed()`:
+
+```{r example}
+library(censlm)
+set.seed(42)
+
+# Simulate left-censored log-normal CRP observations
+crp <- rlnorm(10000, 1.355, 1.450)
+lloq <- 3
+obs <- replace(crp, crp < lloq, lloq)
+crpdf <- data.frame(crp, lloq, obs)
+
+# Fit censored linear model and extract (random) imputations
+fit <- clm(log(obs) ~ 1, left = log(lloq))
+imp <- exp(imputed(fit))
+
+summary(fit)
+summary(cbind(crpdf, imp))
+```

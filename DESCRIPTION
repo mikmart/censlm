@@ -1,0 +1,13 @@
+Package: censlm
+Title: Censored Linear Models
+Version: 0.0.0.9000
+Authors@R: 
+    person("Mikko", "Marttila", , "mikkmart@protonmail.com", role = c("aut", "cre"))
+Description: Fit linear models in the presence of censored data. Simulate
+    plausible values for censored observations based on a fitted model.
+License: MIT + file LICENSE
+Depends: 
+    survival
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
